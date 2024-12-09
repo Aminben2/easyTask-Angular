@@ -1,0 +1,50 @@
+button{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  border-radius: 7px;
+  padding: 0.5rem 1rem;
+  background: linear-gradient(to right, #2c0a4c, #450d80);
+  color: #c3b3d8;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s;
+  min-width: 300px;
+}
+
+button:hover{
+  background: linear-gradient(to right, #450d80, #2c0a4c);
+}
+
+.active{
+  transform: scale(0.98);
+  background: #c3b3d8;
+  color: #2c0a4c;
+  cursor: not-allowed;
+}
+
+button.active:hover{
+  background: #c3b3d8;
+}
+
+button:focus{
+  outline: none;
+}
+
+button:disabled{
+  background: #c3b3d8;
+  color: #2c0a4c;
+  cursor: not-allowed;
+}
+
+button:disabled:hover{
+  background: #c3b3d8;
+}
+
+img{
+  width: 3.5rem;
+  object-fit: contain;
+  border-radius: 50%;
+}

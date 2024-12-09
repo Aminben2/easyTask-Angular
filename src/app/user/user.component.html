@@ -1,0 +1,9 @@
+<!-- <button (click)="onSelectUser()">
+  <img [src]="imagePath()" [alt]="selectedUser().name" width="56" height="56" />
+  <p>{{ selectedUser().name }}</p>
+</button> -->
+
+<button [class.active]="selected" (click)="onSelectUser()">
+  <img [src]="imagePath" [alt]="user.name" width="56" height="56" />
+  <p>{{ user.name }}</p>
+</button>

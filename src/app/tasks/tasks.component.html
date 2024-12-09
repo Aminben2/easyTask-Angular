@@ -1,0 +1,31 @@
+@if (adding) {
+<app-new-task (cancel)="onCancel()" (add)="onTaskAdding($event)" />
+} @if (alerting){
+<app-alert
+  msg="Task added !"
+  alertStyle="success"
+  (closeAlert)="onCloseAlert()"
+/>
+}
+<section id="tasks">
+  @if (id){
+  <header>
+    <h2>{{ name }}'s Tasks</h2>
+    <menu>
+      <button (click)="onAddButton()">Add Task</button>
+    </menu>
+  </header>
+  <ul>
+    @if (selectedUserTasks.length > 0) { @for (task of selectedUserTasks; track
+    task.id) {
+    <li>
+      <app-task [task]="task" (complete)="onComplete($event)"></app-task>
+    </li>
+    } } @else {
+    <p>User does not have tasks, add some</p>
+    }
+  </ul>
+  }@else {
+  <p>Select a user to show his tasks</p>
+  }
+</section>
