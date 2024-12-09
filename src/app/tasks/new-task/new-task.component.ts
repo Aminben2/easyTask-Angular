@@ -1,6 +1,7 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AlertComponent } from '../../tools/alert/alert.component';
+import { TasksService } from '../TasksService';
 
 export interface TaskToAdd {
   title: string;
@@ -20,17 +21,17 @@ export class NewTaskComponent {
   summary = '';
   dueDate = '';
   alerting = false;
-  alertMsg !: string;
-  alertStyle !: string;
+  alertMsg!: string;
+  alertStyle!: string;
 
   @Output() cancel = new EventEmitter();
-  @Output() add = new EventEmitter<TaskToAdd>();
+  @Output() alert = new EventEmitter();
+  @Input({ required: true }) userId!: number;
+
+  tasksService: TasksService = inject(TasksService);
 
   onCancel() {
     this.cancel.emit();
-    this.title = '';
-    this.summary = '';
-    this.dueDate = '';
   }
 
   onSubmit() {
@@ -40,23 +41,24 @@ export class NewTaskComponent {
       this.dueDate.trim() === ''
     ) {
       this.alerting = true;
-      this.alertStyle = "error"
-      this.alertMsg= "All fields are required"
+      this.alertStyle = 'error';
+      this.alertMsg = 'All fields are required';
       return;
     }
 
-    this.add.emit({
-      title: this.title,
-      summary: this.summary,
-      dueDate: this.dueDate,
-    });
-
-    this.title = '';
-    this.summary = '';
-    this.dueDate = '';
+    this.tasksService.addTask(
+      {
+        title: this.title,
+        summary: this.summary,
+        dueDate: this.dueDate,
+      },
+      this.userId
+    );
+    this.cancel.emit()
+    this.alert.emit()
   }
 
-  onCloseAlert(){
-    this.alerting = false
+  onCloseAlert() {
+    this.alerting = false;
   }
 }
